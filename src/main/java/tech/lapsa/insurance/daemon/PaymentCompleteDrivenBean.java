@@ -8,7 +8,7 @@ import tech.lapsa.epayment.facade.beans.EpaymentFacadeBean;
 import tech.lapsa.insurance.facade.InsuranceRequestFacade;
 import tech.lapsa.javax.jms.ObjectConsumerListener;
 
-@MessageDriven(name = PaymentCompleteDrivenBean.JNDI_JMS_DEST)
+@MessageDriven(mappedName = PaymentCompleteDrivenBean.JNDI_JMS_DEST)
 public class PaymentCompleteDrivenBean extends ObjectConsumerListener<Ebill> {
 
     public PaymentCompleteDrivenBean() {
