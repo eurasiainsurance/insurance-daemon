@@ -20,7 +20,7 @@
 		<insurance-facade.version>1.1-SNAPSHOT</insurance-facade.version>
 		<epayment-facade.version>1.1-SNAPSHOT</epayment-facade.version>
 		<!-- tech -->
-		<javax-jms-commons.version>1.0</javax-jms-commons.version>
+		<javax-jms-commons.version>1.1-SNAPSHOT</javax-jms-commons.version>
 	</properties>
 
 	<dependencyManagement>
