@@ -1,5 +1,7 @@
 package tech.lapsa.insurance.daemon;
 
+import static tech.lapsa.java.commons.function.MyExceptions.*;
+
 import java.time.Instant;
 import java.util.Properties;
 
@@ -36,7 +38,7 @@ public class PaymentCompleteDrivenBean extends ObjectConsumerListener<Invoice> {
 	    Instant paid = qp.getCreated();
 	    String ref = qp.getReference();
 	    Double amount = qp.getAmount();
-	    insuranceRequests.markPaymentSuccessful(id, methodName, paid, amount, ref);
+	    reThrowAsUnchecked(() -> insuranceRequests.markPaymentSuccessful(id, methodName, paid, amount, ref));
 	    break;
 	}
     }
