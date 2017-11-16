@@ -33,7 +33,7 @@ public class PaymentCompleteDrivenBean extends ObjectConsumerListener<Invoice> {
 	switch (invoice.getPayment().getMethod()) {
 	case QAZKOM:
 	    String methodName = PaymentMethod.QAZKOM.regular();
-	    QazkomPayment qp = MyObjects.requireA(invoice, QazkomPayment.class);
+	    QazkomPayment qp = MyObjects.requireA(invoice.getPayment(), QazkomPayment.class);
 	    Integer id = Integer.valueOf(invoice.getExternalId());
 	    Instant paid = qp.getCreated();
 	    String ref = qp.getReference();
