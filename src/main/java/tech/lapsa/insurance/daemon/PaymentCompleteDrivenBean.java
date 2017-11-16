@@ -29,16 +29,15 @@ public class PaymentCompleteDrivenBean extends ObjectConsumerListener<Invoice> {
     private InsuranceRequestFacade insuranceRequests;
 
     @Override
-    public void accept(Invoice invoice, Properties properties) {
-	MyObjects.requireNonNull(invoice, "invoice");
-	invoice.optionalPayment()
+    public void accept(final Invoice invoice, final Properties properties) {
+	final APayment payment = MyObjects.requireNonNull(invoice, "invoice") //
+		.optionalPayment() //
 		.orElseThrow(MyExceptions.illegalStateSupplierFormat("No payment attached %1$s", invoice));
-	APayment qp = invoice.getPayment();
-	String methodName = invoice.getPayment().getMethod().regular();
-	Integer id = Integer.valueOf(invoice.getExternalId());
-	Instant paid = qp.getCreated();
-	String ref = qp.getReference();
-	Double amount = qp.getAmount();
+	final String methodName = payment.getMethod().regular();
+	final Integer id = Integer.valueOf(invoice.getExternalId());
+	final Instant paid = payment.getCreated();
+	final String ref = payment.getReference();
+	final Double amount = payment.getAmount();
 	reThrowAsUnchecked(() -> insuranceRequests.markPaymentSuccessful(id, methodName, paid, amount, ref));
     }
 }
