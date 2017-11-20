@@ -8,8 +8,8 @@ import java.util.Properties;
 import javax.ejb.MessageDriven;
 import javax.inject.Inject;
 
-import tech.lapsa.epayment.domain.Payment;
 import tech.lapsa.epayment.domain.Invoice;
+import tech.lapsa.epayment.domain.Payment;
 import tech.lapsa.epayment.facade.beans.EpaymentFacadeBean;
 import tech.lapsa.insurance.facade.InsuranceRequestFacade;
 import tech.lapsa.java.commons.function.MyExceptions;
