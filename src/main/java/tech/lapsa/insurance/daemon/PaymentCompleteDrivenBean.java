@@ -8,7 +8,7 @@ import java.util.Properties;
 import javax.ejb.MessageDriven;
 import javax.inject.Inject;
 
-import tech.lapsa.epayment.domain.APayment;
+import tech.lapsa.epayment.domain.Payment;
 import tech.lapsa.epayment.domain.Invoice;
 import tech.lapsa.epayment.facade.beans.EpaymentFacadeBean;
 import tech.lapsa.insurance.facade.InsuranceRequestFacade;
@@ -30,7 +30,7 @@ public class PaymentCompleteDrivenBean extends ObjectConsumerListener<Invoice> {
 
     @Override
     public void accept(final Invoice invoice, final Properties properties) {
-	final APayment payment = MyObjects.requireNonNull(invoice, "invoice") //
+	final Payment payment = MyObjects.requireNonNull(invoice, "invoice") //
 		.optionalPayment() //
 		.orElseThrow(MyExceptions.illegalStateSupplierFormat("No payment attached %1$s", invoice));
 	final String methodName = payment.getMethod().regular();
