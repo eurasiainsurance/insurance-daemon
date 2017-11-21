@@ -11,7 +11,6 @@ import javax.inject.Inject;
 
 import tech.lapsa.epayment.domain.Invoice;
 import tech.lapsa.epayment.domain.Payment;
-import tech.lapsa.epayment.domain.QazkomPayment;
 import tech.lapsa.epayment.facade.beans.EpaymentFacadeBean;
 import tech.lapsa.insurance.facade.InsuranceRequestFacade;
 import tech.lapsa.java.commons.function.MyExceptions;
@@ -40,9 +39,7 @@ public class PaymentCompleteDrivenBean extends ObjectConsumerListener<Invoice> {
 	final Instant paid = payment.getCreated();
 	final Double amount = payment.getAmount();
 	final Currency currency = payment.getCurrency();
-	final String ref = MyObjects.isA(payment, QazkomPayment.class) //
-		? MyObjects.requireA(payment, QazkomPayment.class).getReference() //
-		: null;
+	final String ref = payment.getReferenceNumber();
 	reThrowAsUnchecked(() -> insuranceRequests.markPaymentSuccessful(id, methodName, paid, amount, currency, ref));
     }
 }
