@@ -3,6 +3,7 @@ package tech.lapsa.insurance.daemon;
 import static tech.lapsa.java.commons.function.MyExceptions.*;
 
 import java.time.Instant;
+import java.util.Currency;
 import java.util.Properties;
 
 import javax.ejb.MessageDriven;
@@ -36,8 +37,9 @@ public class PaymentCompleteDrivenBean extends ObjectConsumerListener<Invoice> {
 	final String methodName = payment.getMethod().regular();
 	final Integer id = Integer.valueOf(invoice.getExternalId());
 	final Instant paid = payment.getCreated();
-	final String ref = payment.getReference();
 	final Double amount = payment.getAmount();
-	reThrowAsUnchecked(() -> insuranceRequests.markPaymentSuccessful(id, methodName, paid, amount, ref));
+	final Currency currency = payment.getCurrency();
+	final String ref = payment.getReferenceNumber();
+	reThrowAsUnchecked(() -> insuranceRequests.markPaymentSuccessful(id, methodName, paid, amount, currency, ref));
     }
 }
