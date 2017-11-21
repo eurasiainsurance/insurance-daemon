@@ -3,6 +3,7 @@ package tech.lapsa.insurance.daemon;
 import static tech.lapsa.java.commons.function.MyExceptions.*;
 
 import java.time.Instant;
+import java.util.Currency;
 import java.util.Properties;
 
 import javax.ejb.MessageDriven;
@@ -10,6 +11,7 @@ import javax.inject.Inject;
 
 import tech.lapsa.epayment.domain.Invoice;
 import tech.lapsa.epayment.domain.Payment;
+import tech.lapsa.epayment.domain.QazkomPayment;
 import tech.lapsa.epayment.facade.beans.EpaymentFacadeBean;
 import tech.lapsa.insurance.facade.InsuranceRequestFacade;
 import tech.lapsa.java.commons.function.MyExceptions;
@@ -36,8 +38,11 @@ public class PaymentCompleteDrivenBean extends ObjectConsumerListener<Invoice> {
 	final String methodName = payment.getMethod().regular();
 	final Integer id = Integer.valueOf(invoice.getExternalId());
 	final Instant paid = payment.getCreated();
-	final String ref = payment.getReference();
 	final Double amount = payment.getAmount();
-	reThrowAsUnchecked(() -> insuranceRequests.markPaymentSuccessful(id, methodName, paid, amount, ref));
+	final Currency currency = payment.getCurrency();
+	final String ref = MyObjects.isA(payment, QazkomPayment.class) //
+		? MyObjects.requireA(payment, QazkomPayment.class).getReference() //
+		: null;
+	reThrowAsUnchecked(() -> insuranceRequests.markPaymentSuccessful(id, methodName, paid, amount, currency, ref));
     }
 }
