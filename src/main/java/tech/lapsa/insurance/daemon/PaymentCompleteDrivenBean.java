@@ -8,6 +8,7 @@ import java.util.Properties;
 
 import javax.ejb.MessageDriven;
 import javax.inject.Inject;
+import javax.jms.MessageListener;
 
 import tech.lapsa.epayment.domain.Invoice;
 import tech.lapsa.epayment.domain.Payment;
@@ -18,7 +19,7 @@ import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.javax.jms.ObjectConsumerDrivenBean;
 
 @MessageDriven(mappedName = PaymentCompleteDrivenBean.JNDI_JMS_DEST)
-public class PaymentCompleteDrivenBean extends ObjectConsumerDrivenBean<Invoice> {
+public class PaymentCompleteDrivenBean extends ObjectConsumerDrivenBean<Invoice> implements MessageListener {
 
     public PaymentCompleteDrivenBean() {
 	super(Invoice.class);
