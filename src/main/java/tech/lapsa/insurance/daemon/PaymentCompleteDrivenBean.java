@@ -15,22 +15,22 @@ import tech.lapsa.epayment.facade.beans.EpaymentFacadeBean;
 import tech.lapsa.insurance.facade.InsuranceRequestFacade;
 import tech.lapsa.java.commons.function.MyExceptions;
 import tech.lapsa.java.commons.function.MyObjects;
-import tech.lapsa.javax.jms.ObjectConsumerListener;
+import tech.lapsa.javax.jms.ObjectConsumerDrivenBean;
 
 @MessageDriven(mappedName = PaymentCompleteDrivenBean.JNDI_JMS_DEST)
-public class PaymentCompleteDrivenBean extends ObjectConsumerListener<Invoice> {
+public class PaymentCompleteDrivenBean extends ObjectConsumerDrivenBean<Invoice> {
 
     public PaymentCompleteDrivenBean() {
 	super(Invoice.class);
     }
 
-    public static final String JNDI_JMS_DEST = EpaymentFacadeBean.JNDI_JMS_DEST_PAID_EBILLs;
+    public static final String JNDI_JMS_DEST = EpaymentFacadeBean.JNDI_JMS_DEST_PAID_INVOICES;
 
     @Inject
     private InsuranceRequestFacade insuranceRequests;
 
     @Override
-    public void accept(final Invoice invoice, final Properties properties) {
+    protected void accept(final Invoice invoice, final Properties properties) {
 	final Payment payment = MyObjects.requireNonNull(invoice, "invoice") //
 		.optionalPayment() //
 		.orElseThrow(MyExceptions.illegalStateSupplierFormat("No payment attached %1$s", invoice));
