@@ -16,10 +16,10 @@ import tech.lapsa.epayment.facade.beans.EpaymentFacadeBean;
 import tech.lapsa.insurance.facade.InsuranceRequestFacade;
 import tech.lapsa.java.commons.function.MyExceptions;
 import tech.lapsa.java.commons.function.MyObjects;
-import tech.lapsa.javax.jms.ObjectConsumerDrivenBean;
+import tech.lapsa.javax.jms.ConsumerServiceDrivenBean;
 
 @MessageDriven(mappedName = PaymentCompleteDrivenBean.JNDI_JMS_DEST)
-public class PaymentCompleteDrivenBean extends ObjectConsumerDrivenBean<Invoice> implements MessageListener {
+public class PaymentCompleteDrivenBean extends ConsumerServiceDrivenBean<Invoice> implements MessageListener {
 
     public PaymentCompleteDrivenBean() {
 	super(Invoice.class);
