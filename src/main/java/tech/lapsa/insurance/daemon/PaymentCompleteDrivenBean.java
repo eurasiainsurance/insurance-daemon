@@ -8,7 +8,6 @@ import java.util.Properties;
 
 import javax.ejb.MessageDriven;
 import javax.inject.Inject;
-import javax.jms.MessageListener;
 
 import tech.lapsa.epayment.domain.Invoice;
 import tech.lapsa.epayment.domain.Payment;
@@ -19,7 +18,7 @@ import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.javax.jms.ConsumerServiceDrivenBean;
 
 @MessageDriven(mappedName = PaymentCompleteDrivenBean.JNDI_JMS_DEST)
-public class PaymentCompleteDrivenBean extends ConsumerServiceDrivenBean<Invoice> implements MessageListener {
+public class PaymentCompleteDrivenBean extends ConsumerServiceDrivenBean<Invoice> {
 
     public PaymentCompleteDrivenBean() {
 	super(Invoice.class);
@@ -31,7 +30,7 @@ public class PaymentCompleteDrivenBean extends ConsumerServiceDrivenBean<Invoice
     private InsuranceRequestFacade insuranceRequests;
 
     @Override
-    protected void accept(final Invoice invoice, final Properties properties) {
+    public void receiving(final Invoice invoice, final Properties properties) {
 	final Payment payment = MyObjects.requireNonNull(invoice, "invoice") //
 		.optionalPayment() //
 		.orElseThrow(MyExceptions.illegalStateSupplierFormat("No payment attached %1$s", invoice));
