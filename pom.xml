@@ -22,7 +22,7 @@
 	<properties>
 		<!-- BOMS -->
 		<javax-javaee-bom.version>7.0</javax-javaee-bom.version>
-		<insurance-facade.version>1.1</insurance-facade.version>
+		<insurance-facade.version>1.2</insurance-facade.version>
 		<!-- tech -->
 		<lapsa-jms-rpc.version>1.0</lapsa-jms-rpc.version>
 		<epayment-shared.version>1.0</epayment-shared.version>
