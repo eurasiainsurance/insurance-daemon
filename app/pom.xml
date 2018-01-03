@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>tech.lapsa.insurance</groupId>
+		<artifactId>insurance-daemon-root</artifactId>
+		<version>1.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>insurance-daemon-app</artifactId>
+	<packaging>ear</packaging>
+
+	<name>Insurance Lib : Daemon : EAR</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>tech.lapsa.insurance</groupId>
+			<artifactId>insurance-daemon</artifactId>
+			<type>ejb</type>
+		</dependency>
+	</dependencies>
+
+</project>

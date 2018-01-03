@@ -4,23 +4,28 @@
 	<parent>
 		<groupId>tech.lapsa.maven</groupId>
 		<artifactId>maven-general</artifactId>
-		<version>3.0</version>
+		<version>3.1</version>
 	</parent>
 
 	<groupId>tech.lapsa.insurance</groupId>
-	<artifactId>insurance-daemon</artifactId>
+	<artifactId>insurance-daemon-root</artifactId>
 	<version>1.1-SNAPSHOT</version>
-	<packaging>ejb</packaging>
+	<packaging>pom</packaging>
 
 	<name>Insurance Lib : Daemon</name>
+
+	<modules>
+		<module>beans</module>
+		<module>app</module>
+	</modules>
 
 	<properties>
 		<!-- BOMS -->
 		<javax-javaee-bom.version>7.0</javax-javaee-bom.version>
-		<insurance-facade.version>1.1-SNAPSHOT</insurance-facade.version>
+		<insurance-facade.version>1.1</insurance-facade.version>
 		<!-- tech -->
-		<javax-jms-rpc.version>1.0-SNAPSHOT</javax-jms-rpc.version>
-		<epayment-shared.version>1.0-SNAPSHOT</epayment-shared.version>
+		<lapsa-jms-rpc.version>1.0</lapsa-jms-rpc.version>
+		<epayment-shared.version>1.0</epayment-shared.version>
 	</properties>
 
 	<dependencyManagement>
@@ -42,9 +47,9 @@
 			</dependency>
 			<!-- tech -->
 			<dependency>
-				<groupId>tech.lapsa.javax</groupId>
-				<artifactId>javax-jms-rpc</artifactId>
-				<version>${javax-jms-rpc.version}</version>
+				<groupId>tech.lapsa.lapsa</groupId>
+				<artifactId>lapsa-jms-rpc</artifactId>
+				<version>${lapsa-jms-rpc.version}</version>
 				<type>ejb</type>
 			</dependency>
 			<dependency>
@@ -52,71 +57,21 @@
 				<artifactId>epayment-shared</artifactId>
 				<version>${epayment-shared.version}</version>
 			</dependency>
+			<!-- own -->
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>insurance-daemon</artifactId>
+				<version>${project.version}</version>
+				<type>ejb</type>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>insurance-daemon-app</artifactId>
+				<version>${project.version}</version>
+				<type>ear</type>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
-	<dependencies>
-		<!-- tech -->
-		<dependency>
-			<groupId>tech.lapsa.insurance</groupId>
-			<artifactId>insurance-facade-client</artifactId>
-			<scope>compile</scope>
-			<optional>false</optional>
-		</dependency>
-		<dependency>
-			<groupId>tech.lapsa.epayment</groupId>
-			<artifactId>epayment-shared</artifactId>
-			<scope>compile</scope>
-			<optional>false</optional>
-		</dependency>
-		<dependency>
-			<groupId>tech.lapsa.javax</groupId>
-			<artifactId>javax-jms-rpc</artifactId>
-			<type>ejb</type>
-			<scope>compile</scope>
-			<optional>false</optional>
-		</dependency>
-		<!-- JavaEE -->
-		<dependency>
-			<groupId>javax.enterprise</groupId>
-			<artifactId>cdi-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.jms</groupId>
-			<artifactId>javax.jms-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.ejb</groupId>
-			<artifactId>javax.ejb-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
-
-	<build>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-				<includes>
-					<include>**/version.properties</include>
-				</includes>
-			</resource>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>false</filtering>
-				<excludes>
-					<exclude>**/version.properties</exclude>
-				</excludes>
-			</resource>
-		</resources>
-	</build>
 
 	<scm>
 		<connection>scm:git:https://gitlab.lapsa.tech/lapsa/insurance/daemon.git</connection>
@@ -128,6 +83,5 @@
 		<system>gitlab</system>
 		<url>https://gitlab.lapsa.tech/lapsa/insurance/daemon/issues</url>
 	</issueManagement>
-
 
 </project>
