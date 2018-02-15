@@ -38,9 +38,10 @@ public class InvoiceHasPaidDrivenBean extends JmsReceiverServiceDrivenBean<Invoi
 	final Instant paid = entity.getInstant();
 	final Double amount = entity.getAmount();
 	final Currency currency = entity.getCurrency();
+	final String card = entity.getPaymentCard();
 	final String ref = entity.getReferenceNumber();
 	try {
-	    insuranceRequests.completePayment(id, methodName, paid, amount, currency, ref);
+	    insuranceRequests.completePayment(id, methodName, paid, amount, currency, card, ref);
 	} catch (final IllegalArgument e) {
 	    throw e.getRuntime();
 	}
