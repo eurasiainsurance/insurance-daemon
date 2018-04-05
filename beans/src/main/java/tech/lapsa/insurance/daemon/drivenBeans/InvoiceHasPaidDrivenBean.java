@@ -35,13 +35,14 @@ public class InvoiceHasPaidDrivenBean extends JmsReceiverServiceDrivenBean<Invoi
 	    throws IllegalArgumentException, IllegalStateException {
 	final String methodName = entity.getMethod();
 	final Integer id = Integer.valueOf(entity.getExternalId());
-	final Instant paid = entity.getInstant();
+	final Instant paymentInstant = entity.getInstant();
 	final Double amount = entity.getAmount();
 	final Currency currency = entity.getCurrency();
-	final String card = entity.getPaymentCard();
-	final String ref = entity.getReferenceNumber();
+	final String paymentCard = entity.getPaymentCard();
+	final String paymentReference = entity.getReferenceNumber();
+	final String payerName = entity.getPayerName();
 	try {
-	    insuranceRequests.completePayment(id, methodName, paid, amount, currency, card, ref);
+	    insuranceRequests.completePayment(id, methodName, paymentInstant, amount, currency, paymentCard, paymentReference, payerName);
 	} catch (final IllegalArgument e) {
 	    throw e.getRuntime();
 	}
