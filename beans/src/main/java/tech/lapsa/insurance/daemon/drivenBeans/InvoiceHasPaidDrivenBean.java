@@ -7,10 +7,13 @@ import java.util.Properties;
 import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 
+import com.lapsa.insurance.domain.InsuranceRequest;
+
 import tech.lapsa.epayment.shared.entity.InvoiceHasPaidJmsEvent;
 import tech.lapsa.epayment.shared.jms.EpaymentDestinations;
 import tech.lapsa.insurance.facade.InsuranceRequestFacade.InsuranceRequestFacadeRemote;
 import tech.lapsa.java.commons.exceptions.IllegalArgument;
+import tech.lapsa.java.commons.exceptions.IllegalState;
 import tech.lapsa.lapsa.jmsRPC.service.JmsReceiverServiceDrivenBean;
 
 @MessageDriven(mappedName = EpaymentDestinations.INVOICE_HAS_PAID)
@@ -33,26 +36,30 @@ public class InvoiceHasPaidDrivenBean extends JmsReceiverServiceDrivenBean<Invoi
 
     private void _receiving(final InvoiceHasPaidJmsEvent entity, final Properties properties)
 	    throws IllegalArgumentException, IllegalStateException {
-	final String methodName = entity.getMethod();
+	final String paymentMethodName = entity.getMethod();
 	final Integer id = Integer.valueOf(entity.getExternalId());
 	final Instant paymentInstant = entity.getInstant();
-	final Double amount = entity.getAmount();
-	final Currency currency = entity.getCurrency();
+	final Double paymentAmount = entity.getAmount();
+	final Currency paymentCurrency = entity.getCurrency();
 	final String paymentCard = entity.getPaymentCard();
 	final String paymentCardBank = entity.getPaymentCardBank();
 	final String paymentReference = entity.getReferenceNumber();
 	final String payerName = entity.getPayerName();
+
 	try {
-	    insuranceRequests.completePayment(id,
-		    methodName,
+	    InsuranceRequest request = insuranceRequests.getById(id);
+	    insuranceRequests.premiumPaid(request,
+		    paymentMethodName,
 		    paymentInstant,
-		    amount,
-		    currency,
+		    paymentAmount,
+		    paymentCurrency,
 		    paymentCard,
 		    paymentCardBank,
 		    paymentReference,
 		    payerName);
 	} catch (final IllegalArgument e) {
+	    throw e.getRuntime();
+	} catch (IllegalState e) {
 	    throw e.getRuntime();
 	}
     }
