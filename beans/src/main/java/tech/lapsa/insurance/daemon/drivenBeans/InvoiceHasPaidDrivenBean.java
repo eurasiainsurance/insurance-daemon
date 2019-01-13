@@ -56,7 +56,8 @@ public class InvoiceHasPaidDrivenBean extends JmsReceiverServiceDrivenBean<Invoi
 		    paymentCard,
 		    paymentCardBank,
 		    paymentReference,
-		    payerName);
+		    payerName,
+		    null);
 	} catch (final IllegalArgument e) {
 	    throw e.getRuntime();
 	} catch (IllegalState e) {
