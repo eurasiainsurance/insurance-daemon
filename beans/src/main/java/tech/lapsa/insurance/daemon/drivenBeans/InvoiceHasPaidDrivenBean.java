@@ -7,8 +7,6 @@ import java.util.Properties;
 import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 
-import com.lapsa.insurance.domain.InsuranceRequest;
-
 import tech.lapsa.epayment.shared.entity.InvoiceHasPaidJmsEvent;
 import tech.lapsa.epayment.shared.jms.EpaymentDestinations;
 import tech.lapsa.insurance.facade.InsuranceRequestFacade.InsuranceRequestFacadeRemote;
@@ -47,8 +45,7 @@ public class InvoiceHasPaidDrivenBean extends JmsReceiverServiceDrivenBean<Invoi
 	final String payerName = entity.getPayerName();
 
 	try {
-	    InsuranceRequest request = insuranceRequests.getById(id);
-	    insuranceRequests.premiumPaid(request,
+	    insuranceRequests.premiumPaid(id,
 		    paymentMethodName,
 		    paymentInstant,
 		    paymentAmount,
@@ -56,8 +53,7 @@ public class InvoiceHasPaidDrivenBean extends JmsReceiverServiceDrivenBean<Invoi
 		    paymentCard,
 		    paymentCardBank,
 		    paymentReference,
-		    payerName,
-		    null);
+		    payerName);
 	} catch (final IllegalArgument e) {
 	    throw e.getRuntime();
 	} catch (IllegalState e) {
