@@ -27,7 +27,7 @@
 		<lapsa-jms-rpc.version>20190113r3</lapsa-jms-rpc.version>
 		<epayment-shared.version>20190113r3</epayment-shared.version>
 		<!-- EJB clients -->
-		<insurance-facade-client.version>CURRENT-SNAPSHOT</insurance-facade-client.version>
+		<insurance-facade-client.version>20190115r1</insurance-facade-client.version>
 	</properties>
 
 	<dependencyManagement>
