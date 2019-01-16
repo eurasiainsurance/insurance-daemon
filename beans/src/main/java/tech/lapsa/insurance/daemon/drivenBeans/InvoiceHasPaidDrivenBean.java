@@ -45,7 +45,7 @@ public class InvoiceHasPaidDrivenBean extends JmsReceiverServiceDrivenBean<Invoi
 	final String payerName = entity.getPayerName();
 
 	try {
-	    insuranceRequests.premiumPaid(id,
+	    insuranceRequests.premiumPaidById(id,
 		    paymentMethodName,
 		    paymentInstant,
 		    paymentAmount,
