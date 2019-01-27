@@ -21,13 +21,13 @@
 
 	<properties>
 		<!-- BOMS -->
-		<javax-javaee-bom.version>CURRENT-SNAPSHOT</javax-javaee-bom.version>
-		<payara-bom.version>CURRENT-SNAPSHOT</payara-bom.version>
+		<javax-javaee-bom.version>20190127r1</javax-javaee-bom.version>
+		<payara-bom.version>20190127r1</payara-bom.version>
 		<!-- tech -->
-		<lapsa-jms-rpc.version>CURRENT-SNAPSHOT</lapsa-jms-rpc.version>
-		<epayment-shared.version>CURRENT-SNAPSHOT</epayment-shared.version>
+		<lapsa-jms-rpc.version>20190127r1</lapsa-jms-rpc.version>
+		<epayment-shared.version>20190127r1</epayment-shared.version>
 		<!-- EJB clients -->
-		<insurance-facade-client.version>CURRENT-SNAPSHOT</insurance-facade-client.version>
+		<insurance-facade-client.version>20190127r1</insurance-facade-client.version>
 	</properties>
 
 	<dependencyManagement>
